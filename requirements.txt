@@ -6,3 +6,4 @@ nltk
 matplotlib
 seaborn
 newspaper3k
+lxml_html_clean
