@@ -3,16 +3,16 @@ import pickle
 import os
 from newspaper import Article
 
-# Page configuration
+
 st.set_page_config(page_title="AI Fake News Detector", layout="centered")
 
-# Load model
+
 BASE_DIR = os.path.dirname(__file__)
 
 model = pickle.load(open(os.path.join(BASE_DIR, "fake_news_model.pkl"), "rb"))
 vectorizer = pickle.load(open(os.path.join(BASE_DIR, "vectorizer.pkl"), "rb"))
 
-# Title
+
 st.title("📰 AI Fake News Detector")
 st.caption("Developed by Satyam Bhardwaj")
 
@@ -25,13 +25,13 @@ You can either **paste the news text** or **provide a news URL**.
 
 st.divider()
 
-# Input selection
+
 option = st.radio(
     "Choose Input Type",
     ("Paste News Text", "Enter News URL")
 )
 
-# Function to extract news from URL
+
 def extract_news_from_url(url):
     article = Article(url)
     article.download()
@@ -40,14 +40,14 @@ def extract_news_from_url(url):
 
 news_text = ""
 
-# Text input
+
 if option == "Paste News Text":
     news_text = st.text_area(
         "Paste the news article here",
         height=200
     )
 
-# URL input
+
 else:
     url = st.text_input("Enter News URL")
 
@@ -59,7 +59,7 @@ else:
         except:
             st.error("Could not fetch article from this URL")
 
-# Prediction
+
 if st.button("Predict"):
 
     if news_text.strip() == "":
@@ -84,6 +84,6 @@ if st.button("Predict"):
 
         st.progress(int(confidence))
 
-# Footer
+
 st.markdown("---")
 st.markdown("Made with ❤️ by **Satyam Bhardwaj**")
